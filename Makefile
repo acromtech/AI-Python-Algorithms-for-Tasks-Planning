@@ -1,17 +1,22 @@
+CURRENT_DIR = $(shell pwd)
+PROJET_DIR = $(CURRENT_DIR)/projet
+
+install_dependencies:
+	pip3 install python-sat
+	pip3 install python-constraint
+
 all : 
-	python3 projet/etape1/Etape1.py > log ; python3 projet/etape1/Etape1.py >> log; \
-	python3 projet/etape2/Etape2.py >> log ; python3 projet/etape3/Etape3.py >> log ; \
-	python3 projet/etape4/Etape4.py >> log ; python3 projet/outils/Lieu.py  >> log; \
-	python3 projet/outils/Fils.py >> log ; python3 projet/outils/GrapheDeLieux.py  >> log; \
-	python3 projet/solvers/SolverAStar.py >> log ; python3 projet/solvers/SolverCSP.py  >> log; \
-	python3 projet/solvers/SolverHC.py >> log ; python3 projet/solvers/SolverSAT.py >> log ; \
-	python3 projet/solvers/SolverTabou.py >> log 
-	diff log projet/tests/logReference
+	export PYTHONPATH=$(PROJET_DIR):$$PYTHONPATH ; \
+	python3 $(PROJET_DIR)/etape2/Etape2.py > log2
+
+
+diff_log :
+	diff log $(PROJET_DIR)/tests/logReference
 
 clear :
 	\rm log
-		
+
 doc :	
-	pdoc --html -f -o Doc projet
+	pdoc --html -f -o Doc $(PROJET_DIR)
 
 

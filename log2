@@ -1,0 +1,46 @@
+10
+Sur 10 villes de 0  à  9  : [ 9, 8, 4, 1, 0 ]
+la lg du plus court chemin est  1190.971503412202
+9
+=======(nb d'etats explores = 7)========
+=======(nb d'etats generes = 21)========
+
+Sur 10 villes de 5  à  9  : [ 9, 8, 6, 5 ]
+la lg du plus court chemin est  858.6177055898913
+9
+=======(nb d'etats explores = 5)========
+=======(nb d'etats generes = 16)========
+
+Sur 10 villes de 2  à  9  : [ 9, 8, 6, 3, 2 ]
+la lg du plus court chemin est  1090.639192762493
+9
+=======(nb d'etats explores = 10)========
+=======(nb d'etats generes = 31)========
+
+Sur 10 villes de 1  à  7  : [ 7, 6, 3, 1 ]
+la lg du plus court chemin est  889.1949043390727
+7
+=======(nb d'etats explores = 5)========
+=======(nb d'etats generes = 14)========
+
+26
+Sur 26 villes de 0  à  25  : [ 25, 24, 19, 16, 12, 5, 3, 0 ]
+la lg du plus court chemin est  1856.5
+25
+=======(nb d'etats explores = 20)========
+=======(nb d'etats generes = 76)========
+
+146
+Sur 146 villes de 0  à  145  : [ 145, 133, 111, 89, 69, 45, 5, 0 ]
+la lg du plus court chemin est  1143.0000000000002
+145
+=======(nb d'etats explores = 150)========
+=======(nb d'etats generes = 1327)========
+
+998
+Sur 998 villes de 0  à  997  : [ 997, 964, 829, 646, 386, 261, 126, 0 ]
+la lg du plus court chemin est  726.7
+997
+=======(nb d'etats explores = 1000)========
+=======(nb d'etats generes = 44862)========
+

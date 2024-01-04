@@ -63,7 +63,7 @@ class Etape1 :
         return SolverSAT.solve(self.base)  # :return True if the clause base representing the problem is satisfiable, False otherwise
 
     def displayBase(self):  # Display the clause base representing the problem
-        print('Clause base uses', self.nbVariables, 'variables and contains the following clauses:')
+        print('Base de clause utilise ', self.nbVariables, ' variables et contient les clauses suivantes :')
         for clause in self.base:
             print(clause)
 
@@ -74,10 +74,13 @@ class __testEtape1__ :
         step = Etape1("Data/town10.txt", True)
         step.updateBase(3)
         print("town10 with 3 colors (expecting True): ", step.runSolver())
+        step.displayBase()
         step.updateBase(2)
         print("town10 with 2 colors (expecting False): ", step.runSolver())
+        #step.displayBase()
         step.updateBase(4)
         print("town10 with 4 colors (expecting True): ", step.runSolver())
+        #step.displayBase()
 
         step = Etape1("Data/pb-etape1/flat20_3_0.col", False)
         step.updateBase(4)

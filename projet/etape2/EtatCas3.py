@@ -47,7 +47,7 @@ class EtatCas3(Etat):
     def displayPath(self):
         # Affiche le chemin trouvé en utilisant une flèche pour représenter les déplacements entre les états
         print("Le chemin trouvé est : ")
-        print(" >>>>> ".join(str(etat) for etat in self.etat_visit))
+        print(" -> ".join(str(etat) for etat in self.etat_visit))
 
     # METHODES pour pouvoir utiliser cet objet dans des listes et des map
     def __hash__(self):

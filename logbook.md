@@ -1,4 +1,5 @@
 # Journal de Bord
+*Alexis GIBERT UPSSITECH SRI 2A*
 
 ## Objectifs 
 R2D2 est un robot placé dans un monde 2D représenté par un graphe non orienté : les arêtes représentent les routes que R2D2 peut suivre, alors que les sommets représentent les lieux où R2D2 a des choses à faire. Les arêtes seront pondérées pour représenter la longueur du chemin que doit parcourir R2D2 pour aller du sommet origine de l’arête au sommet arrivée de l’arête. Et chaque sommet est pondéré par sa position dans le plan 2D du monde (coordonnées euclidiennes).
@@ -21,8 +22,7 @@ Le projet est découpé en 5 étapes réparties sur 12 séances de TP.
 
 5. **Étape 5 (TP 11 et 12):** Suite et fin de la tâche 2 - Résolution du cas 3 de la tâche 2 en exprimant le problème à l'aide de formules mathématiques (utilisation de ZIMPL et SCIP).
 
----
-**Début séance TP1** - KUPR7AB1 : (TP1-G1) IA (MCL)-U3-Salle 201 Tuesday, September 19, 2023⋅15:45 – 17:45
+**Début séance TP1** - KUPR7AB1 : (TP1-G1) IA (MCL)-U3-Salle 201 Tuesday, September 19, 2023 / 15:45 - 17:45
 
 ## Etape 1 : Coloration de Graphes
 
@@ -36,9 +36,10 @@ Problème de Coloration de Graphes, une tâche classique en informatique théori
 ### Encodage en Logique Propositionnelle
 1. **Variables Propositionnelles :**
 
-   Les variables propositionnelles représentent les différentes options de couleur pour chaque lieu du graphe. Chaque variable est un entier unique calculé en fonction du numéro du nœud et du numéro de couleur.
+   Les variables propositionnelles représentent les différentes options de couleur pour chaque lieu du graphe. Chaque variable est un entier unique calculé en fonction du numéro du noeud et du numéro de couleur.
 
     **Exemple**
+
     |Valeur codée|numéro du noeud|numéro de la couleur|
     |-----|-----|-----|
     |4003|4|003|
@@ -46,37 +47,36 @@ Problème de Coloration de Graphes, une tâche classique en informatique théori
     On notera que ce codage limite le nombre de couleur à `999` (largement suffisant dans le cadre de nos tests) mais, en contrepartie, permet de ne pas limiter le nombre de noeud.
 
 
-2. **Clauses pour les Couleurs Possibles pour Chaque Nœud :**
+2. **Clauses pour les Couleurs Possibles pour Chaque Noeud :**
 
-   Les couleurs possibles pour chaque nœud sont représentées par des clauses. Elles expriment la possibilité des différentes couleurs pouvant être prise par un nœud donné.
+   Les couleurs possibles pour chaque noeud sont représentées par des clauses. Elles expriment la possibilité des différentes couleurs pouvant être prise par un noeud donné.
 
-   - **Exemple :** Si le nœud 1 a 4 couleurs possibles, la clause serait (pour chaque couleur) : (1001, 1002, 1003, 1004).
+   - **Exemple :** Si le noeud 1 a 4 couleurs possibles, la clause serait (pour chaque couleur) : (1001, 1002, 1003, 1004).
 
-3. **Clauses pour les Liens entre les Nœuds (Contraintes d'Arêtes) :**
+3. **Clauses pour les Liens entre les Noeuds (Contraintes d'Arêtes) :**
 
    Les différentes arrêtes du graphe sont représentées par des clauses qui expriment les liens entre deux noeuds donnés.
 
-   - **Exemple :** Si le nœud 1 et le nœud 2 sont connectés par une arête, tout comme le noeud 1 et le noeud 3, la clause serait ("x" : la couleur n'importe pas) : (-100x, -200x), (-100x, -300x) 
+   - **Exemple :** Si le noeud 1 et le noeud 2 sont connectés par une arête, tout comme le noeud 1 et le noeud 3, la clause serait ("x" : la couleur n'importe pas) : (-100x, -200x), (-100x, -300x) 
 
 
----
-**Début séance TP2** - KUPR7AB1 : (TP2-G1) IA - (MCL)-U3-Salle 201 Thursday, September 21, 2023⋅13:30 – 15:30 
+
+**Début séance TP2** - KUPR7AB1 : (TP2-G1) IA - (MCL)-U3-Salle 201 Thursday, September 21, 2023 / 13:30 - 15:30 
 
 4. **Clauses pour les Contraintes de Couleur sur les Arêtes :**
 
-   Les contraintes de couleur sur les arêtes sont représentées par des clauses qui expriment l'impossibilité d'avoir deux fois la même couleur entre les nœuds connectés par une arête.
+   Les contraintes de couleur sur les arêtes sont représentées par des clauses qui expriment l'impossibilité d'avoir deux fois la même couleur entre les noeuds connectés par une arête.
 
-   - **Exemple :** Si le nœud 1 et le nœud 2 sont connectés par une arête, tout comme le noeud 1 et le noeud 3, et vous avez 4 couleurs, la clause serait (pour chaque couleur) : (-1001, -2001), (-1002, -2002), (-1003, -2003), (-1004, -2004).
+   - **Exemple :** Si le noeud 1 et le noeud 2 sont connectés par une arête, tout comme le noeud 1 et le noeud 3, et vous avez 4 couleurs, la clause serait (pour chaque couleur) : (-1001, -2001), (-1002, -2002), (-1003, -2003), (-1004, -2004).
 
-5. **Mise en Œuvre dans le Code :**
+5. **Mise en oeuvre dans le Code :**
 
    Dans le code, ces clauses sont générées dynamiquement en utilisant des boucles et des structures de données pour représenter les différents éléments du graphe. La méthode `updateBase` est responsable de la génération des clauses en fonction du nombre de couleurs spécifié.
 
-    - Les variables sont calculées et stockées dans des listes triés (`color`, `node`, `edge`) en fonction du nombre de couleurs et du nombre de nœuds.
+    - Les variables sont calculées et stockées dans des listes triés (`color`, `node`, `edge`) en fonction du nombre de couleurs et du nombre de noeuds.
     - Ces listes triés (pour améliorer le débogage du code) sont ensuite incluses dans la base des clauses (`base`), qui est utilisée pour résoudre le problème avec le solver SAT.
 
----
-**Début séance TP3/TP4** - KUPR7AB1 : (TP3 et 4-G1) IA (MCL) -U2-Salle 209 Wednesday, October 11, 2023⋅13:30 – 17:30
+**Début séance TP3/TP4** - KUPR7AB1 : (TP3 et 4-G1) IA (MCL) -U2-Salle 209 Wednesday, October 11, 2023 - 13:30 - 17:30
 
 6. **Utilisation du SolverSAT :**
     
@@ -87,6 +87,7 @@ Problème de Coloration de Graphes, une tâche classique en informatique théori
     > Si le solveur renvoie True, la base de clauses est satisfaisable, sinon elle ne l'est pas. En d'autres termes, ça nous indique si le robot peut accomplir sa tâche avec le nombre de couleurs choisi.
 
 7. **Vérification des résultats attendus :**
+    
     ```
     10
     town10 with 3 colors (expecting True):  True
@@ -105,6 +106,7 @@ Problème de Coloration de Graphes, une tâche classique en informatique théori
     **Note :** Pour deboger on peut afficher les clauses avec `displayBase`.
 
     Exemple :
+
     ```
     [1001, 1002, 1003]
     [2001, 2002, 2003]
@@ -127,7 +129,7 @@ Problème de Coloration de Graphes, une tâche classique en informatique théori
 R2D2 cherche à déterminer les chemins les plus courts entre deux lieux de son monde en utilisant les distances entre les lieux et les coordonnées cartésiennes de chaque lieu. Le problème est modélisé en tant que tâche de recherche de chemin optimale.
 
 ### Nom et Type du Problème
-Problème du Plus Court Chemin (PCC) consistant à trouver le chemin le plus court entre deux nœuds d'un graphe pondéré.
+Problème du Plus Court Chemin (PCC) consistant à trouver le chemin le plus court entre deux noeuds d'un graphe pondéré.
 
 ### Choix du Solveur
 J'ai choisi le SolverAStar car c'est un algorithme de recherche de plus court chemin qui utilise une combinaison de coût réel et d'une estimation heuristique du coût restant pour guider la recherche vers la solution optimale.
@@ -162,15 +164,15 @@ La classe `EtatCas1` est responsable de la modélisation du problème du Plus Co
 
 ### Tableau Comparatif des Résultats
 
-| Nombre de Villes | Chemin | Longueur du Chemin Attendue | Longueur du Chemin Obtenu | Nb d'États Explorés | Nb d'États Générés |
-|-------------------|--------|-----------------------------|--------------------------|----------------------|---------------------|
-| 10                | 0 → 9  | 1190.97                     | 1190.97                  | 7                    | 21                  |
-| 10                | 5 → 9  | 858.62                      | 858.62                   | 5                    | 16                  |
-| 10                | 2 → 9  | 1090.64                     | 1090.64                  | 10                   | 31                  |
-| 10                | 1 → 7  | 889.19                      | 889.19                   | 5                    | 14                  |
-| 26                | 0 → 25 | 1856.5                      | 1856.5                   | 20                   | 76                  |
-| 146               | 0 → 145| 1143.0                      | 1143.0                   | 150                  | 1327                |
-| 998               | 0 → 997| 726.7                       | 726.7                    | 1000                 | 44862               |
+|Nb Villes|Chemin|Poids Attendu|Poids Obtenu|Nb d'États Explorés|Nb d'États Générés|
+|-------------------|--------------------|-----------------------------|--------------------------|----------------------|---------------------|
+| 10                | 0 à 9  | 1190.97                     | 1190.97                  | 7                    | 21                  |
+| 10                | 5 à 9  | 858.62                      | 858.62                   | 5                    | 16                  |
+| 10                | 2 à 9  | 1090.64                     | 1090.64                  | 10                   | 31                  |
+| 10                | 1 à 7  | 889.19                      | 889.19                   | 5                    | 14                  |
+| 26                | 0 à 25 | 1856.5                      | 1856.5                   | 20                   | 76                  |
+| 146               | 0 à 145| 1143.0                      | 1143.0                   | 150                  | 1327                |
+| 998               | 0 à 997| 726.7                       | 726.7                    | 1000                 | 44862               |
 
 Les résultats obtenus correspondent aux attentes, indiquant que le SolverAStar a réussi à trouver les chemins les plus courts dans chaque cas.
 
@@ -179,11 +181,12 @@ Les nombres d'états explorés et générés varient en fonction de la complexit
 D'ailleurs la vitesse d'execution du programme est assez fulgurante (< 1s)
 
 ## Étape 2 - Cas 2 : Chemins/Cycles les Plus Courts par la terre
-### Modélisation du problème
-
+### Rappel du problème 
 Le Cas 2 consiste à trouver le chemin le plus court qui passe par chaque lieu une seule fois puis revient au point de départ. Il s'agit d'un problème classique connu sous le nom de Problème du Voyageur de Commerce (TSP).
 
-1. Méthode `successeurs(self)`
+### Modélisation du problème
+
+1. **Méthode `successeurs(self)`**
 
     La méthode `successeurs` est cruciale pour ce problème, car elle détermine les mouvements possibles à partir de l'état actuel. Voyons comment elle est implémentée et comment elle contribue à la recherche de la solution :
 
@@ -193,31 +196,30 @@ Le Cas 2 consiste à trouver le chemin le plus court qui passe par chaque lieu u
 
     3. **Stockage dans une Liste :** Les états successeurs ainsi générés sont stockés dans une liste, qui est ensuite renvoyée par la méthode.
 
-2. Méthode `k(self, e)`
+2. **Méthode `k(self, e)`**
 
     La méthode `k` est responsable du calcul du coût du passage de l'état actuel à l'état `e`. Dans le cas du TSP, le coût est simplement le coût de l'arête entre le dernier point du chemin actuel et le premier point du chemin de l'état `e`. Cela permet de garantir que le chemin revient au point de départ.
 
-3. Méthode `calculerPoids(self)`
+3. **Méthode `calculerPoids(self)`**
 
     Cette méthode calcule le poids total du chemin en additionnant les coûts de toutes les arêtes du chemin. Elle est utilisée pour afficher le poids total du chemin dans la méthode `displayPath`.
 
 ### Identification d'un problème
 Les résultats obtenus ne correspondent pas aux attentes pour deux raisons principales :
 
-1. Poids Incorrect : Le poids calculé pour le chemin obtenu est différent de celui attendu, ce qui indique un problème dans le calcul du coût total.
+1. **Poids Incorrect** : Le poids calculé pour le chemin obtenu est différent de celui attendu, ce qui indique un problème dans le calcul du coût total.
     * Attendu : `3792.190362007193` 
     * Obtenu : `1745.2388470688104` 
 
-2. Chemin Incorrect : Le chemin obtenu ne correspond pas au chemin attendu, suggérant une erreur dans la génération des successeurs ou dans le suivi du chemin parcouru.
+2. **Chemin Incorrect** : Le chemin obtenu ne correspond pas au chemin attendu, suggérant une erreur dans la génération des successeurs ou dans le suivi du chemin parcouru.
     * Attendu : `[0, 1, 3, 4, 8, 9, 7, 6, 5, 2, 0]`
     * Obtenu : `[0, 3, 0, 1, 2, 4, 5, 6, 7, 8, 9]`
 
 
----
-**Début séance TP5** KUPR7AB1 : (TP5-G1) IA (MCL)-U2-Salle 218 Thursday, November 16, 2023⋅10:00 – 12:00
+**Début séance TP5** KUPR7AB1 : (TP5-G1) IA (MCL)-U2-Salle 218 Thursday, November 16, 2023 / 10:00 - 12:00
 
 ### Correction du problème
-Le problème dans le code initial résidait dans la manière dont les états visités étaient gérés. Dans l'approche précédente, le chemin était mis à jour en ajoutant le point courant à chaque étape, et les états visités étaient stockés dans un ensemble. Cela conduisait à une mauvaise représentation de l'état et à des erreurs dans la génération des successeurs.
+Le problème dans le code résidait dans la manière dont les états visités étaient gérés. Le chemin était mis à jour en ajoutant le point courant à chaque étape, et les états visités étaient stockés dans un ensemble ce qui conduisait à une mauvaise représentation de l'état et à des erreurs dans la génération des successeurs.
 
 Dans le code corrigé, j'ai apporté plusieurs modifications pour résoudre ces problèmes :
 
@@ -229,8 +231,8 @@ Dans le code corrigé, j'ai apporté plusieurs modifications pour résoudre ces 
 
 4. **Modification de la Méthode `__hash__` :** La méthode `__hash__` a été modifiée pour utiliser un tuple de la liste d'états visités plutôt que la liste elle-même, ce qui permet d'obtenir un hashable.
 
-------
-**Début séance TP6** KUPR7AB1 : (TP6-G1) IA (MCL) - U3-Salle 207 Tuesday, November 21, 2023⋅13:30 – 15:30
+
+**Début séance TP6** KUPR7AB1 : (TP6-G1) IA (MCL) - U3-Salle 207 Tuesday, November 21, 2023 / 13:30 - 15:30
 
 5. **Mise à Jour de la Méthode `successeurs` :** La méthode `successeurs` a été mise à jour pour prendre en compte le retour au point de départ une fois tous les lieux visités.
 
@@ -245,8 +247,7 @@ Dans le code corrigé, j'ai apporté plusieurs modifications pour résoudre ces 
 
 Globalement, l'algorithme produit des résultats corrects avec une efficacité raisonnable en termes de nombre d'états explorés et générés.
 
-------
-**Début séance TP7/8** KUPR7AB1 : (TP7 et 8-G1) IA (MCL)- U3-Salle 214 Wednesday, November 22, 2023⋅08:00 – 12:00
+**Début séance TP7/8** KUPR7AB1 : (TP7 et 8-G1) IA (MCL)- U3-Salle 214 Wednesday, November 22, 2023 / 08:00 - 12:00
 
 ## Etape 2 - Cas 3 : Chemins/Cycles les Plus Courts par le vol
 
@@ -257,7 +258,7 @@ R2D2 vient d’être “upgradé” : son concepteur l’a équipé de la capaci
 ### Modélisation/Adaptation du problème à partir d'`EtatCas2`
 
 | Fonction          | `EtatCas2`                                   | `EtatCas3`                                   |
-|-------------------|----------------------------------------------|----------------------------------------------|
+|-----------------------|----------------------------------------------|----------------------------------------------|
 | **Constructeur**  | `tg`, `etat_visit=None`, `etat_courant=0`, `etat_debut=0` | `tg`, `etat_visit=None`, `etat_courant=0`, `etat_debut=0` |
 | **estSolution**   | Condition basée sur la longueur des sommets visités et l'égalité entre le début et la fin | Condition basée sur la longueur des sommets visités et l'égalité entre le début et la fin |
 | **successeurs**   | Construction de successeurs basés sur les adjacents non visités | Construction de successeurs basés sur les sommets non visités |
@@ -270,24 +271,25 @@ R2D2 vient d’être “upgradé” : son concepteur l’a équipé de la capaci
 
 ### Tableau Comparatif des Résultats
 
-| Nombre de Villes | Résultat Attendu (Poids) | Résultat Obtenu (Poids) | Résultat Attendu (Chemin) | Résultat Obtenu (Chemin) | Nb d'États Explores | Nb d'États Générés |
-|------------------|--------------------------|------------------------|---------------------------|-------------------------|---------------------|---------------------|
-| 6                | 1360.6495955560758       | 1360.6495955560758     | [0, 1, 2, 3, 5, 4, 0]    | [0, 1, 2, 3, 5, 4, 0]    | 131                 | 238                 |
-| 7                | 1638.459980067224        | 1638.459980067224      | [0, 1, 2, 3, 6, 5, 4, 0] | [0, 1, 2, 3, 6, 5, 4, 0] | 552                 | 1110                |
-| 8                | 1729.6228205017967       | 1729.6228205017967     | [0, 4, 5, 7, 6, 3, 2, 1, 0] | [0, 4, 5, 7, 6, 3, 2, 1, 0] | 1430              | 3514               |
-| 9                | 1855.2162397331167       | 1855.2162397331167     | [0, 1, 2, 3, 6, 7, 5, 8, 4, 0] | [0, 1, 2, 3, 6, 7, 5, 8, 4, 0] | 4796              | 13342              |
-| 10               | 2026.2675322208256       | 2026.2675322208256     | [0, 1, 2, 3, 6, 7, 5, 8, 9, 4, 0] | [0, 1, 2, 3, 6, 7, 5, 8, 9, 4, 0] | 16052            | 50412              |
+| Nb Villes | Résultat Attendu | Résultat Obtenu  | Nb d'États Explores | Nb d'États Générés |
+|------------------|-------------------------------------|---------------------------------------|-----------------|--------------|
+| 6                | 1360.6495955560758 <br> [0, 1, 2, 3, 5, 4, 0]      | 1360.6495955560758 <br> [0, 1, 2, 3, 5, 4, 0]    | 131                 | 238                 |
+| 7                | 1638.459980067224 <br> [0, 1, 2, 3, 6, 5, 4, 0]        | 1638.459980067224 <br> [0, 1, 2, 3, 6, 5, 4, 0] | 552                 | 1110                |
+| 8                | 1729.6228205017967 <br> [0, 4, 5, 7, 6, 3, 2, 1, 0]      | 1729.6228205017967 <br> [0, 4, 5, 7, 6, 3, 2, 1, 0] | 1430              | 3514               |
+| 9                | 1855.2162397331167 <br> [0, 1, 2, 3, 6, 7, 5, 8, 4, 0]       | 1855.2162397331167 <br> [0, 1, 2, 3, 6, 7, 5, 8, 4, 0] | 4796              | 13342              |
+| 10               | 2026.2675322208256 <br> [0, 1, 2, 3, 6, 7, 5, 8, 9, 4, 0]       | 2026.2675322208256 <br> [0, 1, 2, 3, 6, 7, 5, 8, 9, 4, 0] | 16052            | 50412              |
 
 **Note :**
+
 - Les poids attendus et obtenus concordent pour les cas testés, confirmant que l'algorithme produit le poids correct.
 - Les chemins attendus et obtenus concordent pour les cas testés, montrant que l'algorithme génère le chemin optimal.
 
 Comme les résultats sont convaincant la prochaine séance je pourrai directement commencer l'étape 3.
 
----
-**Séance TP9/10** KUPR7AB1 : (TP9 et 10-G1) IA (MCL)-U3-Salle 214 Wednesday, November 29, 2023⋅08:00 – 12:00
 
-### Etape 4 - Plus rapide !
+**Séance TP9/10** KUPR7AB1 : (TP9 et 10-G1) IA (MCL)-U3-Salle 214 Wednesday, November 29, 2023 / 08:00 - 12:00
+
+## Etape 3 - Plus rapide !
 
 ### Rappel du problème
 R2D2 se rend compte que sa méthode précédente met trop de temps à s’exécuter ! Du coup, il renonce à trouver le chemin le plus court et est prêt à tenter des chemins un peu moins bons pourvu qu’il arrive à les calculer plus vite. Et comme il est curieux, il va essayer deux méthodes différentes pour voir celle qui est la plus efficace. Vous devrez proposer un mode de représentation et résoudre le problème en utilisant au moins deux des algorithmes fournis. Pour cela vous compléterez la classe UneSolution du package etape3 et vous l’utiliserez pour compléter et exécuter la classe Etape3 du package etape3. Il peut être souhaitable de compléter les tests déjà proposés.
@@ -298,7 +300,7 @@ Le problème que nous cherchons à résoudre est le problème du voyageur de com
 
 J'ai choisi de représenter une solution par une liste ordonnée des indices des villes. Chaque indice représente l'ordre de visite des villes dans le chemin. Par exemple, si la liste est `[0, 2, 1]`, cela signifie que le chemin commence par la ville 0, puis va à la ville 2, et enfin à la ville 1.
 
-La fonction d'évaluation `eval` calcule la longueur totale du chemin en ajoutant les coûts des arêtes entre chaque paire de villes consécutives, ainsi que le coût de l'arête entre la dernière et la première ville.
+La méthode d'évaluation `eval` calcule la longueur totale du chemin en ajoutant les coûts des arêtes entre chaque paire de villes consécutives, ainsi que le coût de l'arête entre la dernière et la première ville.
 
 La méthode `lesVoisins` génère une liste de voisins en échangeant aléatoirement les positions de deux villes dans le chemin pour explorer différentes configurations du chemin.
 
@@ -310,7 +312,7 @@ La méthode `nelleSolution` génère une solution initiale en mélangeant aléat
 ### Choix du solver
 
 | Solveur               | Type                     | Avantages                                  | Inconvénients                                   |
-|-----------------------|--------------------------|--------------------------------------------|------------------------------------------------|
+|-----------------------|---------------------------------|--------------------------------------------|------------------------------------------------|
 | SolverAStar            | Recherche de chemin      | Efficace pour trouver le chemin le plus court | Gourmand en ressources pour des graphes grands |
 | SolverCSP                   | Contraint Satisfaction   | Utile pour des problèmes avec contraintes  | Peut ne pas être efficace pour la recherche de chemin |
 | SolverSAT                   | Boolean Satisfiability   | Utilisé pour des problèmes NP-complets     | Pas toujours adapté à la recherche de chemin   |
@@ -333,7 +335,7 @@ En utilisant ces deux métaheuristiques, nous pouvons comparer leur efficacité 
 
 La classe `Etape3` est développée pour tester les deux solveurs sur différentes instances du problème TSP, avec des graphes de différentes tailles (10, 26, 150, 1000 villes). Les résultats sont affichés pour évaluer la performance des solveurs sur ces instances.
 
-### Conclusion de fin de séance
+### Identification d'un problème
 
 L'exécution du programme actuel semble rencontrer un problème de boucle infinie pour le cas avec 10 villes.
 
@@ -352,12 +354,11 @@ HC, Tabou : sur 10 villes, pas moins de 2026
 Sur les autres ???
 ```
 
-## Séance TP10/11 : Résolution du Problème de Boucle Infinie
-*KUPR7AB1 : (TP11 et 12 et fin-G2) IA (MCL) -U2-Salle 211 Tuesday, December 5, 2023⋅13:30 – 17:30*
+**Séance TP10/11** KUPR7AB1 : (TP11 et 12 et fin-G2) IA (MCL) -U2-Salle 211 Tuesday, December 5, 2023 / 13:30 - 17:30
 
 ### Correction du Problème de Boucle Infinie
 
-Pour résoudre le problème de boucle infinie rencontré lors de la séance précédente, plusieurs modifications ont été apportées à la classe `UneSolution` :
+Pour résoudre le problème de boucle infinie rencontré, plusieurs modifications ont été apportées à la classe `UneSolution` :
 
 1. **Nouveau Constructeur :** Un nouveau constructeur a été ajouté à la classe `UneSolution` pour permettre la création d'une solution à partir d'un cycle préexistant. Cela a été réalisé en ajoutant un paramètre `cycle` au constructeur, qui représente l'ordre de visite des villes.
 
@@ -415,13 +416,14 @@ Dans les deux cas de test, le Solver 2 (Tabou) semble être plus efficace que le
 
 Finalement, R2D2 cherche à savoir combien il lui faut de couleurs a minima pour
 réaliser son travail (tâche 3).
+Vous devrez identifier le nom et le type du problème, proposer un encodage sous la forme d’un graphe de contraintes et le résoudre en utilisant un des algorithmes fournis. Pour cela vous complèterez et exécuterez la classe Etape4 du package etape4. Il peut être souhaitable de compléter les tests déjà proposés
 
 ### Modelisation du problème
 
 1. **Problème :** Coloration de graphe (Graph Coloring Problem)
 
 2. **Encodage sous forme de graphe de contraintes :**
-    Chaque nœud du graphe représente une zone à colorier, et les arêtes du graphe représentent les liens entre les zones. La contrainte est que deux zones adjacentes ne peuvent pas avoir la même couleur.
+    Chaque noeud du graphe représente une zone à colorier, et les arêtes du graphe représentent les liens entre les zones. La contrainte est que deux zones adjacentes ne peuvent pas avoir la même couleur.
 
 3. **Algorithme utilisé :** SolverCSP (algorithme de résolution de problèmes de contraintes)
 
@@ -440,50 +442,48 @@ réaliser son travail (tâche 3).
 | jean.col avec 9 couleurs               | NOK (Pas de solution)        | NOK (Pas de solution)                           |
 
 
+## Étape 5 : Résolution du Problème TSP avec SCIP
 
+### Rappel du problème
 
+Réalisation de la tâche 2 (suite et fin). 
+Comme R2D2 aime aussi beaucoup les maths et qu’il veut épater ses concepteurs, il reprend le cas 3 de la tâche 2, et cherche à le résoudre en l’exprimant à l’aide de formules mathématiques. Vous devrez proposer un encodage approprié utilisant le langage ZIMPL et résoudre le problème en utilisant le solver SCIP
 
+L'objectif est de trouver le meilleur chemin qui passe par toutes les villes une seule fois et retourne à la ville de départ, minimisant ainsi la distance totale parcourue.
 
-
-
-
-
-
-
-
-
-
-
-## Étape 5 : Résolution du Problème du Voyageur de Commerce (TSP) avec SCIP
-
-1. **Problème :** Problème du Voyageur de Commerce (TSP) avec six villes.
-
-2. **Description :** R2D2 s'est lancé dans la résolution du cas 3 de la tâche 2, en cherchant à le résoudre en l’exprimant à l’aide de formules mathématiques. L'objectif est de trouver le meilleur chemin qui passe par toutes les villes une seule fois et retourne à la ville de départ, minimisant ainsi la distance totale parcourue.
-
-3. **Environnement de Travail :**
-
-    1. **Installation de SCIP :** SCIP a été récupéré et installé sur la machine de travail. Le répertoire SCIP, contenant les sous-répertoires "bin", "lib" et "include", a été compressé dans le fichier *SCIP.zip*.
-
-    2. **Upload sur Google Colab :** Le fichier *SCIP.zip* a été téléchargé sur Google Colab, décompressé et testé avec le code ZIMPL fourni.
-
-    ```python
-    !rm -r SCIP
-    !unzip SCIP.zip
-    !SCIP/bin/scip -f projet/etape5/test.zpl
-    ```
-
-### Programme ZIMPL
+### Programme ZIMPL pour n villes
 
 ```python
-from google.colab import files
+import os
+os.system("sudo apt-get install libtbb-dev")
+os.system("sudo apt-get install libopenblas-base")
+
+import re
+
+# Fonction pour extraire la valeur de "objective value:" d'un fichier de log
+def extract_objective_value(file_path):
+    with open(file_path, 'r') as file:
+        for line in file:
+            if "objective value:" in line:
+                match = re.search(r'[-+]?\d*\.\d+|\d+', line)
+                if match:
+                    return float(match.group())
+    return None
+
+# Chemin vers libtbb.so.2
+tbb_path = '/snap/blender/4300/lib'
+
+# Ajouter le chemin au LD_LIBRARY_PATH
+os.environ['LD_LIBRARY_PATH'] = f"{tbb_path}:{os.environ.get('LD_LIBRARY_PATH', '')}"
+
 contenuFichierZIMPL = """
   set V     :=  {1..num_villes};
   set E     := { <i , j > in V * V with i < j };
   set P[]  := powerset (V ) ;
   set K     := indexset (P ) ;
 
-  param px[V]:= read "../../Data/pb-etape5/tsp6.txt" as "1n" skip 4;
-  param py[V]:= read "../../Data/pb-etape5/tsp6.txt" as "2n" skip 4;
+  param px[V]:= read "../../Data/pb-etape5/tspnum_villes.txt" as "1n" skip 4;
+  param py[V]:= read "../../Data/pb-etape5/tspnum_villes.txt" as "2n" skip 4;
 
   defnumb dist(a, b) := sqrt((px[a] - px[b])^2 + (py[a] - py[b])^2);
 
@@ -496,61 +496,32 @@ contenuFichierZIMPL = """
         sum <i, j> in E with <i> in P[k] and <j> in P[k] : x[i, j] <= card(P[k]) - 1;
 """
 
-contenuFichierZIMPL = contenuFichierZIMPL.replace("num_villes", str(6))
-
-# Enregistrez le fichier ZIMPL sur le disque
-with open('projet/etape5/fichier6.zpl', 'w') as f:
-  f.write(contenuFichierZIMPL)
-
-!SCIP/bin/scip -f projet/etape5/fichier6.zpl
+for num_villes in range(6, 20):
+    fichier_zpl = f'projet/etape5/town{num_villes}.zpl'
+    with open(fichier_zpl, 'w') as f:
+        f.write(contenuFichierZIMPL.replace("num_villes", str(num_villes)))
+    os.system(f'projet/solvers/SCIP/bin/scip -f {fichier_zpl} > projet/etape5/log{num_villes}')
+    print("Pour ",num_villes," villes  \t",extract_objective_value(f'projet/etape5/log{num_villes}'))
 ```
 
----
+### Résultats Attendus / Obtenus
 
-### Résultats Obtenus
+| Nombre de Villes | Poids Approximatif Attendu | Poids Approximatif Obtenu |
+|-------------------|----------------------------|---------------------------|
+| 6                 | 1360                       | 1360.64959555608          |
+| 7                 | 1638                       | 1638.45998006722          |
+| 8                 | 1729                       | 1729.6228205018           |
+| 9                 | 1855                       | 1855.21623973312          |
+| 10                | 2026                       | 2026.26753222083          |
+| 11                | 2204                       | 2204.34930872984          |
+| 12                | 2231                       | 2231.43211218805          |
+| 13                | 2247                       | 2247.70309854912          |
+| 14                | 2311                       | 2311.70111550665          |
+| 15                | 2317                       | 2317.57076714782          |
+| 16                | 2353                       | 2353.80139215921          |
+| 17                | 2369                       | 2369.65704299013          |
+| 18                | 2376                       | 2376.85028163456          |
+| 19                | 2405                       | 2405.14241771809          |
 
-Sur 6 villes : meilleur parcours = 0,1,2,3,5,4,0
-- Poids : environ 1360
-
-Sur 7 villes : meilleur parcours = 0,1,2,3,6,5,4,0
-- Poids : environ 1638
-
-Sur 8 villes : meilleur parcours = 0,1,2,3,6,7,5,4,0
-- Poids : environ 1729
-
-Sur 9 villes : meilleur parcours = 0,1,2,3,6,7,5,8,4,0
-- Poids : environ 1855
-
-Sur 10 villes : meilleur parcours = 0, 1, 2, 3, 6, 7, 5, 8, 9, 4, 0
-- Poids : environ 2026
-
-Sur 11 villes : meilleur parcours = 0,2,10,6,9,3,4,7,1,8,5,0
-- Poids : 2204
-
-Sur 12 villes : meilleur parcours = 0,2,6,10,11,9,3,4,7,1,8,5,0
-- Poids : 2231
-
-Sur 13 villes : meilleur parcours = 0,2,6,10,11,9,3,4,7,12,1,8,5,0
-- Poids : 2247
-
-Sur 14 villes : meilleur parcours = 0,2,6,10,11,9,4,3,1,12,7,13,8,5,0
-- Poids : 2311
-
-Sur 15 villes : meilleur parcours = 0,2,6,10,11,9,4,3,1,12,7,14,13,8,5,0
-- Poids : 2317
-
-Sur 16 villes : meilleur parcours = 0,2,6,10,11,9,4,3,1,12,7,15,14,13,8,5,0
-- Poids : 2353
-
-Sur 17 villes : meilleur parcours = 0,2,6,10,11,9,4,3,1,12,7,15,16,14,13,8,5,0
-- Poids : 2369
-
-Sur 18 villes : meilleur parcours = 0,2,6,10,11,9,4,3,1,12,7,15,17,16,14,13,8,5,0
-- Poids : 2376
-
-Sur 19 villes : meilleur parcours = 0,5,8,13,14,16,17,15,7,12,1,3,4,9,11,10,6,18,2,0
-- Poids : 2405
-
----
-
-**Conclusion :** R2D2 a réussi à résoudre le Problème du Voyageur de Commerce pour différentes configurations de villes en utilisant SCIP et ZIMPL. Les résultats obtenus semblent conformes aux attentes, montrant les meilleurs parcours et les poids associés pour chaque cas. Le programme ZIMPL semble bien adapté à la modélisation et à la résolution de problèmes d'optimisation combinatoire comme le TSP. R2D2 peut maintenant épater ses concepteurs avec ces résultats mathématiques impressionnants!
+### Conclusion
+R2D2 a réussi à résoudre le Problème du Voyageur de Commerce pour différentes configurations de villes en utilisant SCIP et ZIMPL. Les résultats obtenus semblent conformes aux attentes, montrant les meilleurs parcours et les poids associés pour chaque cas. Le programme ZIMPL semble bien adapté à la modélisation et à la résolution de problèmes d'optimisation combinatoire comme le TSP. R2D2 peut maintenant épater ses concepteurs avec ces résultats mathématiques impressionnants!

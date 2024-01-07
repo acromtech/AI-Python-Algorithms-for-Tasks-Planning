@@ -82,5 +82,5 @@ class UneSolution(Solution): # Classe pour définir une solution pour le cas 3 d
         """ méthode mettant la solution courante sous la forme d'une
         chaîne de caractères en prévision d'un futur affichage
         :return représentation de la solution courante sous la forme d'une chaîne de caractère"""
-        path_str = "Le chemin optimal est : " + " -> ".join(str(sommet) for sommet in self.cycle)
+        path_str = "Le chemin optimal est : " + " ".join(str(sommet) for sommet in self.cycle)
         return f"{path_str}\nLa meilleure solution a une valeur de {self.eval()}"

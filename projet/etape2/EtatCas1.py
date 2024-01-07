@@ -33,7 +33,7 @@ class EtatCas1(Etat) : # Classe pour definir un etat pour le cas 1 de la tache 2
         while courant != None:
             courant = pere[courant]
             chemin.append(courant)
-        print("Sur",self.tg.getNbSommets(),"villes de",chemin[-2]," à ",chemin[0]," : [",", ".join(str(etat) for etat in chemin[:-1]),"]")
+        print("Sur",self.tg.getNbSommets(),"villes de",chemin[-2]," à ",chemin[0]," : ["," ".join(str(etat) for etat in chemin[:-1]),"]")
 
     # METHODES pour pouvoir utiliser cet objet dans des listes et des map
     def __hash__(self) : # Methode permettant de recuperer le code de hachage de l'etat courant pour une utilisation dans des tables de hachage -> return code de hachage

@@ -1,159 +1,158 @@
 # AI Algorithms on Linux
 
-## Contexte
+## Context
 
-Notre robot R2D2, évolue dans un monde 2D représenté par un graphe non orienté. Les arêtes du graphe représentent les routes que R2D2 peut emprunter, et les sommets représentent les lieux où R2D2 doit effectuer des tâches. Chaque arête est pondérée pour représenter la longueur du chemin, et chaque sommet est pondéré par sa position dans le plan 2D.
+Our robot, R2D2, operates in a 2D world represented by an undirected graph. The graph's edges denote paths R2D2 can take, and the nodes represent locations where R2D2 must perform tasks. Each edge is weighted to represent the path's length, and each node is weighted by its position in the 2D plane.
 
-La mission de R2D2 est de déposer un cube de couleur à chaque lieu de manière à ce que des cubes de couleurs différentes se trouvent dans deux lieux voisins (liés par une arête). Trois principales tâches sont identifiées.
+R2D2's mission is to place a colored cube at each location such that neighboring locations (connected by an edge) have different colored cubes. Three main tasks have been identified.
 
-## Planning
+## Project Planning
 
-Le projet est découpé en 5 étapes réparties sur 12 séances de TP.
+The project is divided into 5 stages over 12 lab sessions.
 
-1. **Étape 1 (TP 1 et 2):** Résolution de la tâche 1 - Utilisation de la logique propositionnelle pour déterminer si trois couleurs sont suffisantes. Utilisation du solver SAT.
+1. **Stage 1 (Sessions 1 and 2):** Solve Task 1 - Use propositional logic to determine if three colors are sufficient, utilizing a SAT solver.
 
-2. **Étape 2 (TP 3 à 6):** Résolution de la tâche 2 - Calcul des chemins les plus courts entre lieux. Trois cas sont abordés, chacun utilisant des algorithmes différents.
+2. **Stage 2 (Sessions 3 to 6):** Solve Task 2 - Calculate the shortest paths between locations, addressing three cases with different algorithms.
+    - **Case 1:** Shortest path between two locations using distances and Cartesian coordinates.
+    - **Case 2:** Shortest path visiting each location once and returning to the starting point.
+    - **Case 3:** Incorporate R2D2's flying capability, allowing straight-line travel between locations.
 
-    - **Cas 1 :** Calcul du plus court chemin entre deux lieux en utilisant les distances et les coordonnées cartésiennes.
-    - **Cas 2 :** Recherche du chemin le plus court passant une fois par chaque lieu et revenant au point de départ.
-    - **Cas 3 :** Intégration de la capacité de vol de R2D2, permettant des déplacements en ligne droite entre les lieux.
+3. **Stage 3 (Sessions 7 and 8):** Continue Task 2 - Optimize methods to calculate less optimal but faster paths.
 
-3. **Étape 3 (TP 7 et 8):** Suite de la tâche 2 - Optimisation des méthodes pour calculer des chemins moins optimaux mais plus rapidement.
+4. **Stage 4 (Sessions 9 and 10):** Solve Task 3 - Use a constraint graph to determine the minimum number of colors needed.
 
-4. **Étape 4 (TP 9 et 10):** Résolution de la tâche 3 - Utilisation d'un graphe de contraintes pour déterminer le nombre minimal de couleurs nécessaires.
+5. **Stage 5 (Sessions 11 and 12):** Continue Task 2 - Solve Case 3 of Task 2 by formulating the problem using mathematical expressions (using ZIMPL and SCIP).
 
-5. **Étape 5 (TP 11 et 12):** Suite et fin de la tâche 2 - Résolution du cas 3 de la tâche 2 en exprimant le problème à l'aide de formules mathématiques (utilisation de ZIMPL et SCIP).
-
-**Note importante pour l'étape 5** : Tous les programmes ZIMPL sont stocké dans des fichier `town(n).zpl` séparés et les résultats sont affiché dans des `log(n)` séparés avec `n` correspondant aux nombre de villes. Veuillez également vérifier les chemins de vos bibliothèques logicielles pour son bon fonctionnement :
+**Important Note for Stage 5:** All ZIMPL programs are stored in separate `town(n).zpl` files, and results are displayed in separate `log(n)` files, where `n` corresponds to the number of towns. Ensure your software library paths are correctly set for proper functioning:
 
 ```python
-# Chemin vers libtbb.so.2
+# Path to libtbb.so.2
 tbb_path = '/snap/blender/4300/lib'
 
-# Ajouter le chemin au LD_LIBRARY_PATH
+# Add the path to LD_LIBRARY_PATH
 os.environ['LD_LIBRARY_PATH'] = f"{tbb_path}:{os.environ.get('LD_LIBRARY_PATH', '')}"
 ```
 
-## Lancement du programme
-1. **Assurez-vous d'être dans le répertoire du dépôt après le téléchargement.**
+## Running the Program
+
+1. **Navigate to the repository directory after downloading.**
+```bash
+cd [path/to/repository]
 ```
-cd [chemin/vers/le/dépôt]
-```
-2. **Exécutez le programme**
-```
+2. **Run the program.**
+```bash
 make all
 ```
-3. **Les résultats sont affichés dans le fichier `log` à côté du Makefile**
+3. **Results are displayed in the `log` file next to the Makefile.**
 
-## Dépendances
+## Dependencies
 
-Lors du lancement du programme (`make all`), il vérifiera que les dépendances sont installées, sinon **il les ajoutera automatiquement** :
-* python-sat
-* python-constraint
-* libopenblas-base
-* libtbb-dev
+When running the program (`make all`), it will check for the required dependencies and **automatically install them** if missing:
+- python-sat
+- python-constraint
+- libopenblas-base
+- libtbb-dev
 
-## Arboressance du projet
+## Project Structure
 ```
 .
 ├── Data
-│   ├── pb-etape1
-│   │   ├── (...)
-│   ├── pb-etape5
-│   │   ├── tsp10.txt
-│   │   ├── tsp11.txt
-│   │   ├── tsp12.txt
-│   │   ├── tsp13.txt
-│   │   ├── tsp146.txt
-│   │   ├── tsp14.txt
-│   │   ├── tsp15.txt
-│   │   ├── tsp16.txt
-│   │   ├── tsp17.txt
-│   │   ├── tsp18.txt
-│   │   ├── tsp19.txt
-│   │   ├── tsp26.txt
-│   │   ├── tsp6.txt
-│   │   ├── tsp7.txt
-│   │   ├── tsp8.txt
-│   │   ├── tsp998.txt
-│   │   └── tsp9.txt
-│   ├── town1000.txt
-│   ├── town10.txt
-│   ├── town11.txt
-│   ├── town12.txt
-│   ├── town13.txt
-│   ├── town14.txt
-│   ├── town150.txt
-│   ├── town15.txt
-│   ├── town16.txt
-│   ├── town17.txt
-│   ├── town18.txt
-│   ├── town19.txt
-│   ├── town30.txt
-│   ├── town6.txt
-│   ├── town7.txt
-│   ├── town8.txt
-│   └── town9.txt
+│   ├── pb-etape1
+│   │   ├── (...)
+│   ├── pb-etape5
+│   │   ├── tsp10.txt
+│   │   ├── tsp11.txt
+│   │   ├── tsp12.txt
+│   │   ├── tsp13.txt
+│   │   ├── tsp146.txt
+│   │   ├── tsp14.txt
+│   │   ├── tsp15.txt
+│   │   ├── tsp16.txt
+│   │   ├── tsp17.txt
+│   │   ├── tsp18.txt
+│   │   ├── tsp19.txt
+│   │   ├── tsp26.txt
+│   │   ├── tsp6.txt
+│   │   ├── tsp7.txt
+│   │   ├── tsp8.txt
+│   │   ├── tsp998.txt
+│   │   └── tsp9.txt
+│   ├── town1000.txt
+│   ├── town10.txt
+│   ├── town11.txt
+│   ├── town12.txt
+│   ├── town13.txt
+│   ├── town14.txt
+│   ├── town150.txt
+│   ├── town15.txt
+│   ├── town16.txt
+│   ├── town17.txt
+│   ├── town18.txt
+│   ├── town19.txt
+│   ├── town30.txt
+│   ├── town6.txt
+│   ├── town7.txt
+│   ├── town8.txt
+│   └── town9.txt
 ├── Doc
-│   ├── projet
-│   │   ├── etape1
-│   │   ├── etape2
-│   │   ├── etape3
-│   │   ├── etape4
-│   │   ├── index.html
-│   │   ├── outils
-│   │   └── solvers
-│   └── SCIP
-│       ├── README-doc-SCIP
-│       └── zimpl-docSimplifiee.pdf
+│   ├── projet
+│   │   ├── etape1
+│   │   ├── etape2
+│   │   ├── etape3
+│   │   ├── etape4
+│   │   ├── index.html
+│   │   ├── outils
+│   │   └── solvers
+│   └── SCIP
+│       ├── README-doc-SCIP
+│       └── zimpl-docSimplifiee.pdf
 ├── log
 ├── Makefile
 ├── projet
-│   ├── etape1
-│   │   ├── Etape1.py
-│   │   ├── __init__.py
-│   │   └── __pycache__
-│   ├── etape2
-│   │   ├── Etape2.py
-│   │   ├── EtatCas1.py
-│   │   ├── EtatCas2.py
-│   │   ├── EtatCas3.py
-│   │   ├── Etat.py
-│   │   ├── __init__.py
-│   │   └── __pycache__
-│   ├── etape3
-│   │   ├── Etape3.py
-│   │   ├── __init__.py
-│   │   ├── __pycache__
-│   │   ├── Solution.py
-│   │   └── UneSolution.py
-│   ├── etape4
-│   │   ├── Etape4.py
-│   │   ├── __init__.py
-│   │   └── __pycache__
-│   ├── etape5
-│   │   ├── Etape5.py
-│   ├── __init__.py
-│   ├── outils
-│   │   ├── Fils.py
-│   │   ├── GrapheDeLieux.py
-│   │   ├── __init__.py
-│   │   ├── Lieu.py
-│   │   └── __pycache__
-│   ├── __pycache__
-│   │   └── __init__.cpython-310.pyc
-│   ├── solvers
-│   │   ├── __init__.py
-│   │   ├── __pycache__
-│   │   ├── SCIP
-│   │   ├── SCIP.zip
-│   │   ├── SolverAStar.py
-│   │   ├── SolverCSP.py
-│   │   ├── SolverHC.py
-│   │   ├── SolverSAT.py
-│   │   └── SolverTabou.py
-│   └── tests
-│       └── logReference
+│   ├── etape1
+│   │   ├── Etape1.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   ├── etape2
+│   │   ├── Etape2.py
+│   │   ├── EtatCas1.py
+│   │   ├── EtatCas2.py
+│   │   ├── EtatCas3.py
+│   │   ├── Etat.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   ├── etape3
+│   │   ├── Etape3.py
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   ├── Solution.py
+│   │   └── UneSolution.py
+│   ├── etape4
+│   │   ├── Etape4.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   ├── etape5
+│   │   ├── Etape5.py
+│   ├── __init__.py
+│   ├── outils
+│   │   ├── Fils.py
+│   │   ├── GrapheDeLieux.py
+│   │   ├── __init__.py
+│   │   ├── Lieu.py
+│   │   └── __pycache__
+│   ├── __pycache__
+│   │   └── __init__.cpython-310.pyc
+│   ├── solvers
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   ├── SCIP
+│   │   ├── SCIP.zip
+│   │   ├── SolverAStar.py
+│   │   ├── SolverCSP.py
+│   │   ├── SolverHC.py
+│   │   ├── SolverSAT.py
+│   │   └── SolverTabou.py
+│   └── tests
+│       └── logReference
 └── README.md
 ```
-
